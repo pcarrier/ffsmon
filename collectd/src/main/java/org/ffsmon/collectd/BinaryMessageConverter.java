@@ -24,22 +24,22 @@ public class BinaryMessageConverter {
 
     private static byte[] generateID(BinaryMessage bmsg) {
         final Hasher hasher = UUIDs.Hash.newHasher();
-        byte[] feed;
-
-        feed = bmsg.getHost();
-        if (feed != null) hasher.putBytes(feed);
-        feed = bmsg.getPlugin();
-        if (feed != null) hasher.putBytes(feed);
-        feed = bmsg.getPluginInstance();
-        if (feed != null) hasher.putBytes(feed);
-        feed = bmsg.getType();
-        if (feed != null) hasher.putBytes(feed);
-        feed = bmsg.getTypeInstance();
-        if (feed != null) hasher.putBytes(feed);
-        feed = bmsg.getMessage();
-        if (feed != null) hasher.putBytes(feed);
-
+        feedHasherByBytes(hasher, bmsg.getHost());
+        feedHasherByBytes(hasher, bmsg.getPlugin());
+        feedHasherByBytes(hasher, bmsg.getPluginInstance());
+        feedHasherByBytes(hasher, bmsg.getType());
+        feedHasherByBytes(hasher, bmsg.getTypeInstance());
+        feedHasherByBytes(hasher, bmsg.getMessage());
         return hasher.hash().asBytes();
+    }
+
+    private static void feedHasherByBytes(Hasher h, byte[] bytes) {
+        if(bytes != null) {
+            h.putBoolean(true);
+            h.putBytes(bytes);
+        } else {
+            h.putBoolean(false);
+        }
     }
 
     private static long convertTimestamp(BinaryMessage bmsg) throws MessageFormatException {

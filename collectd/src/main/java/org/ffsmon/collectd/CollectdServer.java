@@ -24,7 +24,9 @@ public class CollectdServer extends UdpSocket {
         while(shouldContinue) {
             try {
                 final BinaryMessage binaryMessage = grabMessage();
+                System.out.println(binaryMessage);
             } catch (IOException ignored) {
+                // TODO
             }
         }
     }

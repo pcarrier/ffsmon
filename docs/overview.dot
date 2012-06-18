@@ -27,8 +27,8 @@ digraph G {
 	snmpa2 [label="snmp4ffs"];
 
 	node [shape=octagon];
-	cep1 [label="ffscore (engine)"];
-	cep2 [label="ffscore (engine)"];
+	cep1 [label="ffsenrich"];
+	cep2 [label="ffsenrich"];
 
 	srv1->collectd_aggr1;
 	srv1->collectd_aggr2;
@@ -73,34 +73,35 @@ digraph G {
 	collectd_aggr2->cep1;
 	collectd_aggr1->cep2;
 	collectd_aggr2->cep2;
-	collectd_aggr1->dbcol1;
-	collectd_aggr2->dbcol1;
-	collectd_aggr1->dbcol2;
-	collectd_aggr2->dbcol2;
 	icmp1->cep1;
 	icmp2->cep1;
 	icmp1->cep2;
 	icmp2->cep2;
-	icmp1->dbcol1;
-	icmp2->dbcol1;
-	icmp1->dbcol2;
-	icmp2->dbcol2;
 	snmpa1->cep1;
 	snmpa2->cep1;
 	snmpa1->cep2;
 	snmpa2->cep2;
-	snmpa1->dbcol1;
-	snmpa2->dbcol1;
-	snmpa1->dbcol2;
-	snmpa2->dbcol2;
 	snmpt1->cep1;
 	snmpt2->cep1;
 	snmpt1->cep2;
 	snmpt2->cep2;
-	snmpt1->dbcol1;
-	snmpt2->dbcol1;
-	snmpt1->dbcol2;
-	snmpt2->dbcol2;
+
+#	collectd_aggr1->dbcol1;
+#	collectd_aggr2->dbcol1;
+#	collectd_aggr1->dbcol2;
+#	collectd_aggr2->dbcol2;
+#	icmp1->dbcol1;
+#	icmp2->dbcol1;
+#	icmp1->dbcol2;
+#	icmp2->dbcol2;
+#	snmpa1->dbcol1;
+#	snmpa2->dbcol1;
+#	snmpa1->dbcol2;
+#	snmpa2->dbcol2;
+#	snmpt1->dbcol1;
+#	snmpt2->dbcol1;
+#	snmpt1->dbcol2;
+#	snmpt2->dbcol2;
 
 	cep1->ffs2pagerduty1;
 	cep1->ffs2pagerduty2;

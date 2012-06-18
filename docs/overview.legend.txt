@@ -1,0 +1,2 @@
+- ffs protocol in bold
+- arrows start from initiators

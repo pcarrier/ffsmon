@@ -1,0 +1,49 @@
+digraph G {
+	node [fontsize=8];
+	edge [fontsize=8,arrowsize=0.6];
+	ordering=out;
+
+	kernel [shape=record];
+	munin;
+	unix_socket [label="Unix socket plugin"];
+	jmx [label="JMX plugin"];
+	statistics [label="statistics (py module)"];
+	builtin_plugins [label="various plugins"];
+	munin_plugin [label = "munin plugin"];
+
+	kernel->outside [dir=back];
+
+	statistics->unix_socket;
+	unix_socket->collectd;
+
+	kernel->builtin_plugins [dir=back];
+	jmx->collectd [dir=back];
+
+	builtin_plugins->collectd [dir=back];
+	munin_plugin->collectd;
+
+	munin->munin_plugin [dir=both, label="poll or push?"];
+
+	rand1->jmx [dir=back];
+	rand2->jmx [dir=back];
+	rand3->statistics;
+	rand4->statistics;
+	rand5->munin [dir=back];
+	rand6->munin [dir=back];
+	rand7->unix_socket;
+	rand8->unix_socket;
+
+	collectd [shape=invtriangle];
+
+	collectd->outside;
+	outside [shape=egg];
+
+	rand1 [label="", shape=square];
+	rand2 [label="", shape=square];
+	rand3 [label="", shape=square];
+	rand4 [label="", shape=square];
+	rand5 [label="", shape=square];
+	rand6 [label="", shape=square];
+	rand7 [label="", shape=square];
+	rand8 [label="", shape=square];
+}

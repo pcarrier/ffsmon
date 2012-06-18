@@ -1,0 +1,166 @@
+digraph G {
+	node [fontsize=8];
+	edge [arrowsize=0.6, style=dashed];
+
+	ordering=out;
+
+	node [shape=circle];
+	hw1 [label="hw"];
+	hw2 [label="hw"];
+	hw3 [label="hw"];
+	hw4 [label="hw"];
+	hw5 [label="hw"];
+	srv1 [label="host"];
+	srv2 [label="host"];
+	srv3 [label="host"];
+	srv4 [label="host"];
+	srv5 [label="host"];
+
+	node [shape=record];
+	collectd_aggr1 [label="collectd2ffs"];
+	collectd_aggr2 [label="collectd2ffs"];
+	icmp1 [label="icmp4ffs"];
+	icmp2 [label="icmp4ffs"];
+	snmpt1 [label="snmptrap2ffs"];
+	snmpt2 [label="snmptrap2ffs"];
+	snmpa1 [label="snmp4ffs"];
+	snmpa2 [label="snmp4ffs"];
+
+	node [shape=octagon];
+	cep1 [label="ffscore (engine)"];
+	cep2 [label="ffscore (engine)"];
+
+	srv1->collectd_aggr1;
+	srv1->collectd_aggr2;
+	srv2->collectd_aggr1;
+	srv2->collectd_aggr2;
+	srv3->collectd_aggr1;
+	srv3->collectd_aggr2;
+	srv4->collectd_aggr1;
+	srv4->collectd_aggr2;
+
+	hw2->snmpt1;
+	hw2->snmpt2;
+	hw3->snmpt1;
+	hw3->snmpt2;
+	hw4->snmpt1;
+	hw4->snmpt2;
+	hw5->snmpt1;
+	hw5->snmpt2;
+
+	edge [dir=back];
+	hw1->snmpa1;
+	hw1->snmpa2;
+	hw2->snmpa1;
+	hw2->snmpa2;
+	hw3->snmpa1;
+	hw3->snmpa2;
+	hw4->snmpa1;
+	hw4->snmpa2;
+
+	srv2->icmp1;
+	srv2->icmp2;
+	srv3->icmp1;
+	srv3->icmp2;
+	srv4->icmp1;
+	srv4->icmp2;
+	srv5->icmp1;
+	srv5->icmp2;
+
+	edge [style="filled", dir=forward];
+
+	collectd_aggr1->cep1;
+	collectd_aggr2->cep1;
+	collectd_aggr1->cep2;
+	collectd_aggr2->cep2;
+	collectd_aggr1->dbcol1;
+	collectd_aggr2->dbcol1;
+	collectd_aggr1->dbcol2;
+	collectd_aggr2->dbcol2;
+	icmp1->cep1;
+	icmp2->cep1;
+	icmp1->cep2;
+	icmp2->cep2;
+	icmp1->dbcol1;
+	icmp2->dbcol1;
+	icmp1->dbcol2;
+	icmp2->dbcol2;
+	snmpa1->cep1;
+	snmpa2->cep1;
+	snmpa1->cep2;
+	snmpa2->cep2;
+	snmpa1->dbcol1;
+	snmpa2->dbcol1;
+	snmpa1->dbcol2;
+	snmpa2->dbcol2;
+	snmpt1->cep1;
+	snmpt2->cep1;
+	snmpt1->cep2;
+	snmpt2->cep2;
+	snmpt1->dbcol1;
+	snmpt2->dbcol1;
+	snmpt1->dbcol2;
+	snmpt2->dbcol2;
+
+	cep1->ffs2pagerduty1;
+	cep1->ffs2pagerduty2;
+	cep2->ffs2pagerduty1;
+	cep2->ffs2pagerduty2;
+
+	dbcol1 [label="ffsdbcol"];
+	dbcol2 [label="ffsdbcol"];
+	dedup [label="ffsdedup (active-passive)"];
+	ffs2pagerduty1 [label="ffs2pagerduty"];
+	ffs2pagerduty2 [label="ffs2pagerduty"];
+
+	cep1->dedup;
+	cep2->dedup;
+	cep1->dbcol1;
+	cep1->dbcol2;
+	cep2->dbcol1;
+	cep2->dbcol2;
+
+	ingest1->cep1 [dir=both];
+	ingest1->cep2 [dir=both];
+	ingest2->cep1 [dir=both];
+	ingest2->cep2 [dir=both];
+
+	node [shape=house];
+	histdb [label="history db"];
+
+	dedup->various_tools;
+
+	edge [dir=back, style=dashed];
+	dns->ingest1;
+	dns->ingest2;
+	inventory->ingest1;
+	inventory->ingest2;
+	edge [dir=forward];
+
+	node [shape=invtriangle];
+	mail [label="ffsmailer"];
+	dedup->mail [style=filled];
+
+	various_tools [label="tooling", shape=egg];
+	dbread1 [label="ffsdbread"];
+	dbread2 [label="ffsdbread"];
+
+	dbcol1->histdb;
+	dbcol2->histdb;
+
+	ffs2pagerduty1->pagerduty;
+	ffs2pagerduty2->pagerduty;
+
+	ingest1 [label="data4ffs", shape=record];
+	ingest2 [label="data4ffs", shape=record];
+
+	edge [dir=back];
+	
+	histdb->dbread1;
+	histdb->dbread2;
+	dbread1->various_tools;
+	dbread2->various_tools;
+
+	pagerduty->various_tools;
+}
+

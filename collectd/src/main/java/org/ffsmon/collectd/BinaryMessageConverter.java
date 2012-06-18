@@ -24,6 +24,15 @@ public class BinaryMessageConverter {
 
     private static byte[] generateID(BinaryMessage bmsg) {
         final Hasher hasher = UUIDs.Hash.newHasher();
+
+        final Long hr = bmsg.getIntervalHR();
+        if (hr != null)
+            hasher.putLong(hr);
+        else {
+            final Long time = bmsg.getTime();
+            if (time != null)
+                hasher.putLong(time);
+        }
         feedHasherByBytes(hasher, bmsg.getHost());
         feedHasherByBytes(hasher, bmsg.getPlugin());
         feedHasherByBytes(hasher, bmsg.getPluginInstance());

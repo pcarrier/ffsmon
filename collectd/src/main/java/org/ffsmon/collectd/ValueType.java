@@ -11,7 +11,6 @@ public enum ValueType {
     DERIVE(0x02),
     ABSOLUTE(0x03);
 
-    @EnumId
-    @Getter
+    @EnumId @Getter
     private final int code;
 }

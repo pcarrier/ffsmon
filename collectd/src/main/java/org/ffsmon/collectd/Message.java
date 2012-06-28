@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class BinaryMessage {
+public class Message {
     private byte[] host, plugin, pluginInstance, type, typeInstance, message;
-    private Long time, timeHR, interval, intervalHR, severity;
+    private Long time, timeHR, interval, intervalHR;
+    private Severity severity;
     private List<Value> values;
 
-    static BinaryMessage parse(ByteBuffer buffer) throws UnsupportedTypeException, InvalidMessageFormatException {
-        BinaryMessage res = new BinaryMessage();
+    public static Message parse(ByteBuffer buffer) throws UnsupportedTypeException, InvalidFormatException {
+        Message res = new Message();
 
         buffer.order(ByteOrder.BIG_ENDIAN);
 
@@ -39,7 +40,7 @@ public class BinaryMessage {
                     res.setIntervalHR(getNumeric(buffer));
                     break;
                 case SEVERITY:
-                    res.setSeverity(getNumeric(buffer));
+                    res.setSeverity(Severity.findByCode((short)getNumeric(buffer)));
                     break;
                 case PLUGIN:
                     res.setPlugin(getBinaryString(buffer));
@@ -69,11 +70,11 @@ public class BinaryMessage {
         return res;
     }
 
-    private static List<Value> parseValues(ByteBuffer buffer) throws InvalidMessageFormatException {
+    private static List<Value> parseValues(ByteBuffer buffer) throws InvalidFormatException {
         final int length = getLength(buffer);
         final int valuesNum = buffer.getShort();
         if (length + 6 != valuesNum * 9)
-            throw new InvalidMessageFormatException();
+            throw new InvalidFormatException();
 
         final List<Value> values = new ArrayList<Value>(valuesNum);
 
@@ -110,9 +111,9 @@ public class BinaryMessage {
         return (buffer.getShort() - 4);
     }
 
-    private static @NonNull long getNumeric(ByteBuffer buffer) throws InvalidMessageFormatException {
+    private static @NonNull long getNumeric(ByteBuffer buffer) throws InvalidFormatException {
         if (getLength(buffer) != 8)
-            throw new InvalidMessageFormatException();
+            throw new InvalidFormatException();
         return buffer.getLong();
     }
 }

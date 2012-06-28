@@ -5,14 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.ffsmon</groupId>
-    <artifactId>main</artifactId>
+    <artifactId>parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>deps</module>
-        <module>utils</module>
         <module>collectd</module>
+        <module>collectd-ingester</module>
+        <module>deps</module>
         <module>proto</module>
+        <module>utils</module>
     </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 </project>

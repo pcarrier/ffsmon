@@ -1,0 +1,21 @@
+Preferences
+- Components over features
+- Conventions over policies
+- Simplicity over reusability
+
+Ruleset
+- Velcro beats shoelaces hands down. Avoid sophistication.
+- Hardware is cheap. Do everything at least twice, then de-duplicate.
+- Don't reinvent the wheel, use hexagons.
+  If someone did good enough, don't do perfect.
+  Writing and maintaining is far from perfect.
+- Programs are bombs. Do controlled explosions.
+- Unit tests are for wuss. Record. Refactor. Replay.
+
+Golden rule: LEAVE IT OUT!
+- Configuration? OUT! We have puppet. Maybe revisit.
+- Data collection? OUT! collectd does great. Integrate. Maybe revisit.
+- Node classificant? OUT! We have inventory, DNS, etc. Integrate. Maybe revisit.
+- Texting, calling, escalating? OUT! Pagerduty seems cool. Integrate. Maybe revisit.
+- A problem to solve that's not only yours?
+  Give it to someone else. They'll solve it for everyone.

@@ -21,7 +21,6 @@ public enum PartType {
     SIGNATURE(0x0200),
     ENCRYPTION(0x0210);
 
-    @EnumId
-    @Getter
+    @EnumId @Getter
     private final int code;
 }
